@@ -1,11 +1,16 @@
 package com.example.ageinminutes
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Gravity
 import android.view.View
+import android.widget.Button
+import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.view.isInvisible
 
 class MainActivity : AppCompatActivity() {
     @SuppressLint("SetTextI18n")
@@ -15,19 +20,18 @@ class MainActivity : AppCompatActivity() {
 
         //find txt1 label and set text
         val txt1 = findViewById<TextView>(R.id.txt1)
-        txt1.text = "Hello World"
+        txt1.text = "Levantamiento de Inventarios"
         //find txt2 label
         val txt2 = findViewById<TextView>(R.id.txt2)
         //set text2
-        txt2.text = "Hello World 2"
+        txt2.text = "Usuario SFexNet"
         //find input1 field value
         val input1 = findViewById<TextView>(R.id.input1)
-        //set button listener
     }
     //function to connect to bd an prepare statement
     @SuppressLint("SetTextI18n")
     fun getData(view: View) {
-        val input1 = findViewById<TextView>(R.id.input1)
+         val input1 = findViewById<TextView>(R.id.input1)
         //connect to bd
         val bd = connectionClass().dbConn()
         //prepare statement
@@ -40,7 +44,11 @@ class MainActivity : AppCompatActivity() {
         // get data
         if (rs?.next() == true) {
             val txt2 = findViewById<TextView>(R.id.txt2)
-            txt2.text = rs.getString("UserLogin")
+            txt2.isInvisible = true
+            val intent = Intent(this, MainActivity2::class.java).apply {
+                putExtra("UserLogin", rs.getString("UserLogin"))
+            }
+            startActivity(intent)
         } else {
             val txt2 = findViewById<TextView>(R.id.txt2)
             txt2.text = "No data"
