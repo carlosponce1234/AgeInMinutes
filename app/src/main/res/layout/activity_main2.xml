@@ -6,32 +6,20 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity2">
 
-    <Button
-        android:id="@+id/button"
-        android:layout_width="266dp"
-        android:layout_height="76dp"
-        android:layout_marginBottom="76dp"
-        android:contentDescription="@string/dummy_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
     <ListView
         android:id="@+id/sucursalesLista"
         style="@android:style/Widget.DeviceDefault.ExpandableListView"
         android:layout_width="349dp"
         android:layout_height="431dp"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="80dp"
         android:layout_marginEnd="20dp"
-        android:layout_marginBottom="5dp"
         android:clickable="true"
         android:elevation="@dimen/cardview_compat_inset_shadow"
         android:fadeScrollbars="true"
         android:footerDividersEnabled="true"
         android:headerDividersEnabled="true"
         android:padding="25dp"
-        app:layout_constraintBottom_toTopOf="@+id/button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/titulo2" />
@@ -40,16 +28,17 @@
         android:id="@+id/titulo2"
         android:layout_width="408dp"
         android:layout_height="83dp"
+        android:layout_marginBottom="38dp"
         android:background="@color/light_blue_900"
         android:padding="10dp"
         android:textAlignment="center"
         android:textColor="#F4EEEE"
         android:textColorHighlight="@color/light_blue_900"
         android:textSize="25sp"
+        app:layout_constraintBottom_toTopOf="@+id/sucursalesLista"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_bias="0.333"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
         tools:text="@tools:sample/lorem" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

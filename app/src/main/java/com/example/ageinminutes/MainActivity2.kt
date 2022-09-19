@@ -13,13 +13,11 @@ class MainActivity2 : AppCompatActivity() {
         setContentView(R.layout.activity_main2)
 
         val Userlogin = intent.getStringExtra("UserLogin")
-        val btn = findViewById<Button>(R.id.button)
         val titulo = findViewById<TextView>(R.id.titulo2)
         titulo.text = "Bienvenido $Userlogin"
-        btn.text = "Continuar"
         loadSucursales()
         val listView = findViewById<ListView>(R.id.sucursalesLista)
-        ListView.setOnItemClickListener { parent, view, position, id ->
+        listView.setOnItemClickListener { parent, view, position, id ->
             val item = parent.getItemAtPosition(position) as String
             Toast.makeText(this, "Seleccionaste $item", Toast.LENGTH_SHORT).show()
         }
