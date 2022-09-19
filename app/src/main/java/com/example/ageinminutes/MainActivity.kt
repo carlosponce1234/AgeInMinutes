@@ -18,42 +18,45 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        //find txt1 label and set text
+        //Seteamos el titulo de la app
         val txt1 = findViewById<TextView>(R.id.txt1)
         txt1.text = "Levantamiento de Inventarios"
-        //find txt2 label
+        //seteamos la etiqueta para el input de Usuario
         val txt2 = findViewById<TextView>(R.id.txt2)
-        //set text2
         txt2.text = "Usuario SFexNet"
-        //find input1 field value
-        val input1 = findViewById<TextView>(R.id.input1)
     }
-    //function to connect to bd an prepare statement
+    //COMPROBAMOS QUE EL USUARIO EXISTA EN LA BASE DE DATOS
     @SuppressLint("SetTextI18n")
     fun getData(view: View) {
-         val input1 = findViewById<TextView>(R.id.input1)
-        //connect to bd
+        //obtenemos el valor del input
+        val input1 = findViewById<TextView>(R.id.input1)
+        //CONECTAMOS A LA BASE DE DATOS
         val bd = connectionClass().dbConn()
-        //prepare statement
-        val sql = "SELECT UserLogin FROM Util.CatUsuarios where CodUser = ?"
+        //CREAMOS UNA CONSULTA
+        val sql = "SELECT UserLogin,CodUser FROM Util.CatUsuarios where UserLogin = ?"
         val stmt = bd?.prepareStatement(sql)
-        //set parameters
+        //ASIGNAMOS EL VALOR DEL INPUT A LA CONSULTA
         stmt?.setString(1, "${input1.text}")
-        //execute query
         val rs = stmt?.executeQuery()
-        // get data
+        //SI EL USUARIO EXISTE EN LA BASE DE DATOS
         if (rs?.next() == true) {
-            val txt2 = findViewById<TextView>(R.id.txt2)
-            txt2.isInvisible = true
+            //CREAMOS UNA VARIABLE PARA GUARDAR EL NOMBRE DEL USUARIO
+            //Y ASIGNAMOS EL VALOR DE LA CONSULTA
+            //PREPARAMOS UN INTENT PARA PASAR A LA SIGUIENTE ACTIVIDAD
             val intent = Intent(this, MainActivity2::class.java).apply {
+                //PASAMOS EL VALOR DE LA CONSULTA A LA SIGUIENTE ACTIVIDAD
                 putExtra("UserLogin", rs.getString("UserLogin"))
+                putExtra("CodUser", rs.getString("CodUser"))
             }
+            //INICIAMOS LA SIGUIENTE ACTIVIDAD
             startActivity(intent)
         } else {
+            //SI EL USUARIO NO EXISTE EN LA BASE DE DATOS
+            //MOSTRAMOS UN MENSAJE DE ERROR
             val txt2 = findViewById<TextView>(R.id.txt2)
-            txt2.text = "No data"
+            txt2.text = "No existe el usuario"
         }
-        //close connection
+        //CERRAMOS LA CONEXION A LA BASE DE DATOS
         bd?.close()
     }
 }
